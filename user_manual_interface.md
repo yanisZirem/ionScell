@@ -31,40 +31,41 @@
 
 ## 1. Introduction
 
-The **IonScell Desktop Interface** (`ionScell.exe`) is a standalone graphical application that exposes the full `SCMSIPipeline` engine through an interactive GUI — no Python knowledge required. It provides the same analytical depth as the Jupyter notebook, with additional features designed for speed and interactivity:
 
-- Real-time parameter preview before computation
-- Click-to-remove artefacts directly on the image
-- Side-by-side clone comparison panels
-- Drag-and-drop multi-ion overlay builder
-- One-click report generation (HTML / PDF)
+The **IonScell Desktop Interface** is a standalone graphical application that exposes the full `SCMSIPipeline` engine through an interactive GUI — no Python knowledge required.
 
-The interface is particularly suited for:
-- Laboratories without Python expertise
-- Rapid QC of multiple samples
-- Interactive sessions with collaborators
-- Preparing publication-quality figures
+⚠️ The desktop application is **not distributed in this GitHub repository**.  
+It must be downloaded separately from the official distribution link.
+
+📥 Download IonScell GUI:  
+https://nextcloud.univ-lille.fr/index.php/f/384061741
 
 ---
 
 ## 2. Installation & First Launch
 
-### Windows
+### Download the Interface (Windows)
 
-1. Download the release archive from GitHub Releases or the project website.
-2. Extract to a folder **without spaces** in the path (e.g. `C:\ionscell\`).
-3. Double-click `ionScell.exe`.
+The IonScell GUI is distributed separately from the GitHub repository.
 
-> No Python installation required — all dependencies are bundled in the `_internal/` folder.
+1. Download the latest release archive from:  
+   https://nextcloud.univ-lille.fr/index.php/f/384061741
+2. Extract the archive to a folder **without spaces** in the path  
+   Example: `C:\ionscell\`
+3. Inside the extracted folder, double-click **ionScell.exe**
+
+> The GitHub repository only contains the pipeline and notebooks.  
+> The executable is **not included in the repo**.
 
 ### First launch
 
 On first launch, IonScell will:
-1. Verify the `_internal/` folder is present alongside the `.exe`
-2. Display the **Welcome screen** with a link to sample data
+
+1. Verify the `_internal/` folder is present alongside the executable  
+2. Display the Welcome screen with a link to sample data  
 3. Offer to create a default workspace folder (`Documents/IonScell_Projects/`)
 
-**Do not move `ionScell.exe` away from the `_internal/` folder** — the application will fail to start.
+⚠️ Do not move the executable away from the `_internal/` folder.
 
 ---
 
@@ -531,16 +532,12 @@ Use the **interface** for rapid QC, interactive exploration, and sharing with co
 
 **Segmentation produces thousands of tiny fragments**  
 → Increase `Smoothing σ` to 1.5–2.0 before segmentation.  
-→ Increase `Min cell size` to 6–10 px.  
+→ adapat `Min cell size` and `max cell size` 
 → Try lowering the TIC threshold manually.
 
 **UMAP takes > 5 minutes**  
 → Reduce `n_neighbors` to 10.  
 → This is normal for > 5 000 cells without GPU. The interface will show a progress bar.
-
-**Export HTML report is very large (> 100 MB)**  
-→ Reduce figure resolution in `Export → Settings → DPI`.  
-→ Uncheck "Include raw spectral data" in the export options.
 
 **Annotations show no results**  
 → Check that your m/z range overlaps the lipid database (350–1 100 Da).  
@@ -549,5 +546,5 @@ Use the **interface** for rapid QC, interactive exploration, and sharing with co
 
 ---
 
-*IonScell Desktop Interface v6c*  
+*IonScell Desktop Interface v1.0*  
 *For bug reports and feature requests: GitHub Issues*
