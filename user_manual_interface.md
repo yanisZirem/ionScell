@@ -1,6 +1,6 @@
 # IonScell Desktop Interface — User Manual
 
-<p align="center"><em>Version 1.0 · Advanced GUI for Single-Cell Mass Spectrometry Imaging</em></p>
+<p align="center"><em>Version 1.0 · GUI for Single-Cell Mass Spectrometry Imaging</em></p>
 
 ---
 
