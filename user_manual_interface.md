@@ -69,45 +69,9 @@ On first launch, IonScell will:
 
 ---
 
-## 3. Interface Overview
+## 3. Module-by-Module Guide
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  IonScell  v6c           [File] [Analysis] [View] [Help]            │
-├──────────────┬──────────────────────────────────────┬───────────────┤
-│              │                                      │               │
-│  NAVIGATOR   │         MAIN VIEWER                  │  INSPECTOR    │
-│              │                                      │               │
-│  ○ Project   │  ┌──────────────────────────────┐   │  Parameters   │
-│  ○ Files     │  │                              │   │  ─────────    │
-│  ○ Steps     │  │   Interactive image / plot   │   │  Results      │
-│  ○ Results   │  │                              │   │  ─────────    │
-│              │  └──────────────────────────────┘   │  Notes        │
-│  PIPELINE    │                                      │               │
-│  STATUS      │  ─────────── CONSOLE ────────────   │               │
-│  ✅ Loaded   │  [14:32] imzML loaded (12 450 px)   │               │
-│  ✅ Cube     │  [14:33] Datacube built 110×95×7500 │               │
-│  … Segment   │  [14:33] Auto threshold: 8 432.1    │               │
-└──────────────┴──────────────────────────────────────┴───────────────┘
-│  [Step 1: Load] [Step 2: Cube] [Step 3: TIC] … [Step 12: Export]    │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-The interface has three zones:
-
-| Zone | Description |
-|------|-------------|
-| **Navigator (left)** | Project tree, pipeline status, step list |
-| **Main Viewer (centre)** | All interactive figures, plots, tables |
-| **Inspector (right)** | Context-sensitive parameters and results summary |
-| **Step Bar (bottom)** | Quick-access buttons for each pipeline step |
-| **Console (bottom centre)** | Live log output |
-
----
-
-## 4. Module-by-Module Guide
-
-### 4.1 File & Project Panel
+### 3.1 File & Project Panel
 
 **Creating a new project:**
 `File → New Project` (or `Ctrl+N`)  
@@ -130,7 +94,7 @@ IonScell restores all pipeline steps performed in the previous session, includin
 
 ---
 
-### 4.2 Data Loading
+### 3.2 Data Loading
 
 **Step 1 — Load imzML**
 
@@ -155,7 +119,7 @@ The Console will confirm loading:
 
 ---
 
-### 4.3 Data Cube Builder
+### 3.3 Data Cube Builder
 
 **Step 2 — Build Cube**
 
@@ -182,7 +146,7 @@ A progress bar shows spectral binning progress. For large files, enable **Memory
 
 ---
 
-### 4.4 TIC Viewer
+### 3.4 TIC Viewer
 
 **Step 3 — Visualise TIC**
 
@@ -203,9 +167,9 @@ The TIC viewer is an interactive Plotly figure embedded in the Main Viewer.
 
 ---
 
-### 4.5 Thresholding & Segmentation
+### 3.5 Thresholding & Segmentation
 
-**Step 4 — Threshold & Segment**
+**Step 5 — Threshold & Segment**
 
 This step combines adaptive thresholding and cell segmentation.
 
@@ -241,7 +205,7 @@ The Main Viewer shows:
 
 ---
 
-### 4.6 Cell Manager
+### 3.6 Cell Manager
 
 **Removing artefact cells:**
 
@@ -264,7 +228,7 @@ Click any column header to sort. Click a row to highlight the corresponding cell
 
 ---
 
-### 4.7 Spectral Extraction & QC
+### 3.7 Spectral Extraction & QC
 
 **Step 6 — Extract Spectra**
 
@@ -296,7 +260,7 @@ Click **Apply Filter** to confirm removal, or **Preview Only** to see the effect
 
 ---
 
-### 4.8 Soft Clustering
+### 3.8 Soft Clustering
 
 **Step 8 — Clustering**
 
@@ -325,7 +289,7 @@ Click **Run Clustering**.
 
 ---
 
-### 4.9 Clone Manager
+### 3.9 Clone Manager
 
 **Clone overview table:**
 
@@ -356,7 +320,7 @@ Click **Generate Quality Report** to open a detailed HTML report in your browser
 
 ---
 
-### 4.10 Ion Maps & Spatial Viewer
+### 3.10 Ion Maps & Spatial Viewer
 
 **Single-ion map:**
 
@@ -388,7 +352,7 @@ Up to 6 ions can be overlaid simultaneously. Each ion is mapped to a distinct co
 
 ---
 
-### 4.11 Differential Analysis
+### 3.11 Differential Analysis
 
 **Step 10 — Differential Analysis**
 
@@ -418,7 +382,7 @@ Click **Export Table** to save the full differential results as CSV.
 
 ---
 
-### 4.12 Lipid Annotation
+### 3.12 Lipid Annotation
 
 **Step 11 — Annotation**
 
@@ -450,7 +414,7 @@ Type any m/z in the Inspector search field and click **Lookup** to annotate a si
 
 ---
 
-### 4.13 Export Manager
+### 3.13 Export Manager
 
 **Step 12 — Export**
 
@@ -477,27 +441,7 @@ Generates a self-contained HTML file with all visualisations (TIC, segmentation,
 
 ---
 
-## 5. Keyboard Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl+N` | New project |
-| `Ctrl+O` | Open project |
-| `Ctrl+S` | Save project |
-| `Ctrl+Z` | Undo last action |
-| `Ctrl+Y` | Redo |
-| `Ctrl+E` | Export |
-| `F5` | Re-run current step |
-| `F11` | Toggle fullscreen |
-| `Ctrl+1` … `Ctrl+9` | Jump to step 1…9 |
-| `Ctrl+0` | Jump to step 10 (Diff) |
-| `Space` | Play/pause live preview |
-| `Delete` | Remove selected cell(s) in Cell Manager |
-| `Escape` | Cancel running computation |
-
----
-
-## 6. Comparison: Interface vs Notebook
+## 4. Comparison: Interface vs Notebook
 
 | Feature | Desktop Interface | Jupyter Notebook |
 |---------|-----------------|-----------------|
@@ -515,7 +459,7 @@ Use the **interface** for rapid QC, interactive exploration, and sharing with co
 
 ---
 
-## 7. Troubleshooting
+## 5. Troubleshooting
 
 **Application fails to start**  
 → Verify `_internal/` is in the same folder as `ionScell.exe`.  
