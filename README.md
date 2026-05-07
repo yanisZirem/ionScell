@@ -23,8 +23,8 @@ IonScell is available in two complementary formats in this repository:
 | **Jupyter Notebook** (`ionScell_notebook.ipynb`) | Step-by-step exploratory analysis, publication figures |
 | **Python class** (`ionscell_pipeline.py`) | Integration into existing pipelines, scripting |
 
-👉 The **IonScell Desktop GUI** is distributed separately 
-📥 Download the latest version here:  
+The **IonScell Desktop GUI** is distributed separately 
+Download the latest version here:  
 [IonScell GUI download](https://nextcloud.univ-lille.fr/index.php/f/384061741?utm_source=chatgpt.com)
 ---
 
@@ -341,3 +341,4 @@ MIT License — see `LICENSE` for details.
 ## Contact
 
 Issues and feature requests: [GitHub Issues](https://github.com/your-org/ionscell/issues)
+yanis.zirem@univ-lille.fr/ yanis.zirem2016@univ-lille.fr
