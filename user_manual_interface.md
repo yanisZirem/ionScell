@@ -506,8 +506,7 @@ Generates a self-contained HTML file with all visualisations (TIC, segmentation,
 | Real-time preview | ✅ Yes | ❌ No |
 | Custom code | ❌ No | ✅ Full Python access |
 | Google Colab support | ❌ No | ✅ Yes |
-| HTML report export | ✅ One click | Manual |
-| Reproducible scripts | ❌ | ✅ |
+| Reproducible scripts | ✅ | ✅ |
 | Pipeline state save | ✅ Auto | Manual |
 | Batch processing | ❌ (v1.0) | ✅ Loop in Python |
 
