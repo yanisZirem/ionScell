@@ -16,14 +16,16 @@
 
 **IonScell** is a Python pipeline for **Single-Cell Mass Spectrometry Imaging (SCMSI)**. It processes raw imzML files acquired on MALDI, DESI, or other MSI platforms and performs the full analytical workflow, from data loading and cell segmentation, through soft clustering and quality control, to lipid/metabolite annotation and export.
 
-IonScell is available in three complementary formats:
+IonScell is available in two complementary formats in this repository:
 
 | Format | Best for |
 |--------|----------|
 | **Jupyter Notebook** (`ionScell_notebook.ipynb`) | Step-by-step exploratory analysis, publication figures |
 | **Python class** (`ionscell_pipeline.py`) | Integration into existing pipelines, scripting |
-| **Desktop application** (`ionScell.exe`) | Non-programmers, rapid interactive analysis |
 
+👉 The **IonScell Desktop GUI** is distributed separately 
+📥 Download the latest version here:  
+[IonScell GUI download](https://nextcloud.univ-lille.fr/index.php/f/384061741?utm_source=chatgpt.com)
 ---
 
 ## Key Features
@@ -136,9 +138,19 @@ ann_df, enrichment = pipe.annotate_ions(mode='neg', ppm_tolerance=10.0)
 pipe.export_cells_to_csv("results/cells.csv")
 ```
 
-### Option C — Desktop GUI
+### Option C — IonScell Desktop GUI (no Python required)
 
-Double-click `ionScell.exe`. See the **Interface User Manual** for full instructions.
+The standalone graphical application is distributed separately.
+
+📥 Download the latest version here:  
+[IonScell GUI download](https://nextcloud.univ-lille.fr/index.php/f/384061741?utm_source=chatgpt.com)
+
+After downloading:
+1. Extract the archive
+2. Launch `ionScell.exe`
+3. Follow the **Interface User Manual** in `docs/user_manual_interface.md`
+
+⚠️ The executable is **not hosted on GitHub** due to file size and bundled dependencies.
 
 ---
 
