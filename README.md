@@ -14,7 +14,7 @@
 
 ## Overview
 
-**IonScell** is a Python pipeline for **Single-Cell Mass Spectrometry Imaging (SCMSI)**. It processes raw imzML files acquired on MALDI, DESI, or other MSI platforms and performs the full analytical workflow — from data loading and cell segmentation, through soft clustering and quality control, to lipid/metabolite annotation and export.
+**IonScell** is a Python pipeline for **Single-Cell Mass Spectrometry Imaging (SCMSI)**. It processes raw imzML files acquired on MALDI, DESI, or other MSI platforms and performs the full analytical workflow, from data loading and cell segmentation, through soft clustering and quality control, to lipid/metabolite annotation and export.
 
 IonScell is available in three complementary formats:
 
@@ -32,7 +32,7 @@ IonScell is available in three complementary formats:
 - **Adaptive TIC thresholding** — 8 algorithms (GMM, Otsu, Triangle, Li, Yen, …) with automatic selection
 - **Cell segmentation** — Watershed and DFS algorithms with size filtering in pixels or µm
 - **Soft clustering** — Gaussian Mixture Models (GMM) and Fuzzy C-Means (FCM) with probabilistic membership
-- **Quality control** — SNR, sparsity, dynamic range, spectral entropy per cell
+- **Quality control** — SNR, sparsity, dynamic range, spectral entropy, number of detected peaks
 - **Clone quality assessment** — Confidence scores, within-clone CV, between-clone separability
 - **Differential analysis** — Kruskal-Wallis or ANOVA with BH FDR correction, volcano plots, Z-score heatmaps
 - **Ion spatial mapping** — Single-ion and multi-ion overlay with cell contours
