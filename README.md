@@ -8,8 +8,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square"/>
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square"/>
-  <img src="https://img.shields.io/badge/Format-imzML-orange?style=flat-square"/>
-  <img src="https://img.shields.io/badge/Clustering-GMM%20%7C%20FCM-purple?style=flat-square"/>
   <a href="https://doi.org/10.5281/zenodo.20070096">
     <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.20070096.svg" alt="DOI"/>
   </a>
