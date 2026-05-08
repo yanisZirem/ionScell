@@ -299,7 +299,7 @@ df   = ann.search("ceramide")             # free-text search
 
 ```
 ionscell/
-├── ionscell_pipeline.py        ← SCMSIPipeline + LipidAnnotator class
+├── ionscell_pipeline.py        ← SCMSIPipeline
 ├── ionScell_notebook.ipynb     ← Clean Jupyter notebook (imports class)
 ├── requirements.txt
 ├── README.md
@@ -307,7 +307,6 @@ ionscell/
 ├── docs/
 │   ├── user_manual_jupyter.md  ← Jupyter + Google Colab user manual
 │   └── user_manual_interface.md← Desktop interface user manual
-└── _internal/                  ← (bundled app dependencies)
 ```
 
 ---
@@ -327,8 +326,7 @@ ionscell/
 
 If you use IonScell in your research, please cite:
 
-> **IonScell: A Python pipeline for single-cell mass spectrometry imaging**  
-> *[Authors, Journal, Year — in preparation]*
+ionScell is currently under reviewers revision 
 
 ---
 
@@ -340,5 +338,5 @@ MIT License — see `LICENSE` for details.
 
 ## Contact
 
-Issues and feature requests: [GitHub Issues](https://github.com/your-org/ionscell/issues)
+Issues and feature requests: [GitHub Issues](https://github.com/your-org/ionscell/issues)/
 yanis.zirem@univ-lille.fr/ yanis.zirem2016@univ-lille.fr
