@@ -1,0 +1,32 @@
+# IonScell — Python dependencies
+# Install with: pip install -r requirements.txt
+
+# ── Core scientific stack ─────────────────────────────────────────────────────
+numpy>=1.24
+pandas>=2.0
+scipy>=1.11
+
+# ── Image processing & segmentation ──────────────────────────────────────────
+scikit-image>=0.21
+scikit-learn>=1.3
+
+# ── Visualisation ─────────────────────────────────────────────────────────────
+plotly>=5.18
+matplotlib>=3.7
+
+# ── Mass spectrometry imaging ─────────────────────────────────────────────────
+pyimzml>=1.5
+
+# ── Dimensionality reduction ──────────────────────────────────────────────────
+umap-learn>=0.5
+
+# ── Progress bar ──────────────────────────────────────────────────────────────
+tqdm>=4.66
+
+# ── Optional: Fuzzy C-Means clustering ───────────────────────────────────────
+# Uncomment or install separately if you want to use compute_fuzzy_cmeans()
+# scikit-fuzzy>=0.4
+
+# ── Optional: Jupyter / Colab ─────────────────────────────────────────────────
+# notebook>=7.0
+# jupyterlab>=4.0
