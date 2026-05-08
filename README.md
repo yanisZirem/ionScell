@@ -8,24 +8,73 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square"/>
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Format-imzML-orange?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Clustering-GMM%20%7C%20FCM-purple?style=flat-square"/>
+  <img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20070096-blue?style=flat-square"/>
+</p>
+
+<p align="center">
+  <a href="https://colab.research.google.com/github/yanisZirem/ionScell/blob/main/ionScell_notebook.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+  </a>
 </p>
 
 ---
 
 ## Overview
 
-**IonScell** is a Python pipeline for **Single-Cell Mass Spectrometry Imaging (SCMSI)**. It processes raw imzML files acquired on MALDI, DESI, or other MSI platforms and performs the full analytical workflow, from data loading and cell segmentation, through soft clustering and quality control, to lipid/metabolite annotation and export.
+**IonScell** is a Python pipeline for **Single-Cell Mass Spectrometry Imaging (SCMSI)**. It processes raw imzML files acquired on MALDI, DESI, or other MSI platforms and performs the full analytical workflow — from data loading and cell segmentation, through soft clustering and quality control, to lipid/metabolite annotation and export.
 
-IonScell is available in two complementary formats in this repository:
+IonScell is available in three complementary formats:
 
 | Format | Best for |
 |--------|----------|
 | **Jupyter Notebook** (`ionScell_notebook.ipynb`) | Step-by-step exploratory analysis, publication figures |
 | **Python class** (`ionscell_pipeline.py`) | Integration into existing pipelines, scripting |
+| **Desktop GUI** (`ionScell.exe`) | Non-programmers, rapid interactive analysis |
 
-The **IonScell Desktop GUI** is distributed separately 
-Download the latest version here:  
-[IonScell GUI download](https://nextcloud.univ-lille.fr/index.php/f/384061741?utm_source=chatgpt.com)
+> 💡 **New to IonScell? Start with the [mixed cell dataset](#️-test-datasets-zenodo) — it is the smallest file and ideal for a first run.**
+
+---
+
+## 🗂️ Test Datasets (Zenodo)
+
+All test datasets used to develop and validate IonScell are publicly available on Zenodo:
+
+> **IonScell Test Datasets**  
+> 📦 DOI: [10.5281/zenodo.20070096](https://doi.org/10.5281/zenodo.20070096)
+
+The repository contains the following datasets:
+
+| Dataset | Description | Recommended for | DOI |
+|---------|-------------|-----------------|-----|
+| **Mixed cells** ⭐ | Two cell lines mixed in vitro, small ROI | **First-time users — start here** | [10.5281/zenodo.20070096](https://doi.org/10.5281/zenodo.20070096) |
+| **Cancer cell lines** | Single cancer cell line, full dish scan | Segmentation parameter tuning | [10.5281/zenodo.20070096](https://doi.org/10.5281/zenodo.20070096) |
+| **Tissue section** | Mouse liver section, high cell density | Dense tissue / DFS segmentation | [10.5281/zenodo.20070096](https://doi.org/10.5281/zenodo.20070096) |
+
+> ⭐ **We strongly recommend starting with the mixed cell dataset.** It covers a small spatial region (~50 × 50 pixels), runs through the entire pipeline in under 5 minutes on a standard laptop, and demonstrates IonScell's ability to resolve two distinct cell populations via soft clustering.
+
+### Downloading test data
+
+```bash
+# Using the Zenodo DOI — download with wget or curl
+wget "https://doi.org/10.5281/zenodo.20070096" -O ionscell_testdata.zip
+
+# Or in Python
+import urllib.request
+urllib.request.urlretrieve(
+    "https://zenodo.org/record/20070096/files/mixed_cells.imzML",
+    "data/mixed_cells.imzML"
+)
+```
+
+### Data reuse
+
+These datasets are released under **Creative Commons CC BY 4.0** and are freely available for reuse in other tools, benchmarks, or publications. If you use them, please cite:
+
+> Zirem Y. et al., *IonScell Test Datasets*, Zenodo, 2025.  
+> DOI: [10.5281/zenodo.20070096](https://doi.org/10.5281/zenodo.20070096)
+
 ---
 
 ## Key Features
@@ -48,7 +97,7 @@ Download the latest version here:
 ### 1. Clone or download the repository
 
 ```bash
-git clone https://github.com/your-org/ionscell.git
+git clone https://github.com/yanisZirem/ionScell.git
 cd ionscell
 ```
 
@@ -65,20 +114,6 @@ conda activate ionscell
 pip install -r requirements.txt
 ```
 
-**`requirements.txt`**
-```
-numpy>=1.24
-pandas>=2.0
-scipy>=1.11
-scikit-image>=0.21
-scikit-learn>=1.3
-plotly>=5.18
-matplotlib>=3.7
-pyimzml>=1.5
-tqdm>=4.66
-umap-learn>=0.5
-```
-
 Optional (for Fuzzy C-Means):
 ```bash
 pip install scikit-fuzzy
@@ -88,22 +123,36 @@ pip install scikit-fuzzy
 
 ## Quick Start
 
-### Option A — Jupyter Notebook
+### Option A — Jupyter Notebook (local)
 
 ```bash
 jupyter notebook ionScell_notebook.ipynb
 ```
 
-Follow the numbered cells (Steps 1–12) to process your dataset interactively.
+Follow the numbered cells (Steps 0–12) to process your dataset interactively.
 
-### Option B — Python script
+### Option B — Google Colab (no installation)
+
+Click the badge below to open the notebook directly in Google Colab — no local installation required:
+
+<p align="center">
+  <a href="https://colab.research.google.com/github/yanisZirem/ionScell/blob/main/ionScell_notebook.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" height="32"/>
+  </a>
+</p>
+
+The notebook's **Step 0** cell auto-detects Colab and installs all dependencies automatically. You will then be prompted to upload your `.imzML` and `.ibd` files (or mount your Google Drive).
+
+> 💡 **Tip for Colab:** Use the [mixed cell dataset](https://doi.org/10.5281/zenodo.20070096) for your first run — it is small enough to process on the free tier without needing a High-RAM runtime.
+
+### Option C — Python script
 
 ```python
 from ionscell_pipeline import SCMSIPipeline, LipidAnnotator
 
 # 1. Load data
 pipe = SCMSIPipeline()
-pipe.load_imzml("path/to/your/data.imzML")
+pipe.load_imzml("data/mixed_cells.imzML")
 pipe.build_datacube(mz_min=350, mz_max=1100, mz_bin=0.1, normalization="TIC")
 
 # 2. Visualise TIC
@@ -138,19 +187,19 @@ ann_df, enrichment = pipe.annotate_ions(mode='neg', ppm_tolerance=10.0)
 pipe.export_cells_to_csv("results/cells.csv")
 ```
 
-### Option C — IonScell Desktop GUI (no Python required)
+### Option D — IonScell Desktop GUI (no Python required)
 
-The standalone graphical application is distributed separately.
+The standalone Windows application provides a full graphical interface to the same pipeline.
 
-📥 Download the latest version here:  
-[IonScell GUI download](https://nextcloud.univ-lille.fr/index.php/f/384061741?utm_source=chatgpt.com)
+📥 **Download the latest version:**  
+[https://nextcloud.univ-lille.fr/index.php/f/384061741](https://nextcloud.univ-lille.fr/index.php/f/384061741)
 
 After downloading:
 1. Extract the archive
 2. Launch `ionScell.exe`
 3. Follow the **Interface User Manual** in `docs/user_manual_interface.md`
 
-⚠️ The executable is **not hosted on GitHub** due to file size and bundled dependencies.
+> ⚠️ The executable is **not hosted on GitHub** due to file size constraints.
 
 ---
 
@@ -166,26 +215,26 @@ load_imzml()
 make_mz_axis() / build_adaptive_mz_axis()
     │
     ▼
-build_datacube()          ← normalization: TIC / RMS / MEDIAN
+build_datacube()             ← normalization: TIC / RMS / MEDIAN
     │
     ▼
-auto_TIC_threshold()      ← 8 algorithms, automatic selection
+auto_TIC_threshold()         ← 8 algorithms, automatic selection
     │
     ▼
-watershed_or_dfs_from_mask()   ← Watershed or DFS
-    │                            ← size filtering (px or µm)
-    ├── remove_cells()           ← manual artefact removal
+watershed_or_dfs_from_mask() ← Watershed or DFS
+    │                           ← size filtering (px or µm)
+    ├── remove_cells()          ← manual artefact removal
     │
     ▼
-extract_cell_spectra()    ← mean / median / sum per cell
+extract_cell_spectra()       ← mean / median / sum per cell
     │
     ▼
 compute_spectral_quality_metrics()
 filter_low_quality_cells()
     │
     ▼
-compute_soft_clustering()      ← GMM (auto k via BIC/silhouette)
-  or compute_fuzzy_cmeans()    ← FCM
+compute_soft_clustering()        ← GMM (auto k via BIC/silhouette)
+  or compute_fuzzy_cmeans()      ← FCM
     │
     ▼
 assess_clone_quality()
@@ -198,10 +247,10 @@ assess_clone_quality()
     ├── plot_distribution_by_clone()
     │
     ▼
-run_differential_analysis()   ← Kruskal-Wallis / ANOVA + BH FDR
+run_differential_analysis()  ← Kruskal-Wallis / ANOVA + BH FDR
     │
     ▼
-annotate_ions()               ← LipidAnnotator (embedded DB)
+annotate_ions()              ← LipidAnnotator (embedded DB)
     │
     ▼
 export_cells_to_csv()
@@ -299,14 +348,14 @@ df   = ann.search("ceramide")             # free-text search
 
 ```
 ionscell/
-├── ionscell_pipeline.py        ← SCMSIPipeline
-├── ionScell_notebook.ipynb     ← Clean Jupyter notebook (imports class)
+├── ionscell_pipeline.py          ← SCMSIPipeline + LipidAnnotator class
+├── ionScell_notebook.ipynb       ← Clean Jupyter notebook (imports class)
 ├── requirements.txt
 ├── README.md
 ├── logo.png
-├── docs/
-│   ├── user_manual_jupyter.md  ← Jupyter + Google Colab user manual
-│   └── user_manual_interface.md← Desktop interface user manual
+└── docs/
+    ├── user_manual_jupyter.md    ← Jupyter + Google Colab user manual
+    └── user_manual_interface.md  ← Desktop GUI user manual
 ```
 
 ---
@@ -316,7 +365,7 @@ ionscell/
 | Instrument type | Format | Notes |
 |----------------|--------|-------|
 | MALDI-TOF/TOF   | imzML  | Continuous or processed mode |
-| MALDI-Orbitrap  | imzML  | Use adaptive binning for best annotation |
+| MALDI-Orbitrap  | imzML  | Use adaptive binning for best annotation accuracy |
 | DESI-MS         | imzML  | |
 | SIMS            | imzML  | |
 
@@ -326,7 +375,12 @@ ionscell/
 
 If you use IonScell in your research, please cite:
 
-ionScell is currently under reviewers revision 
+> IonScell is currently under reviewer revision.
+
+If you use the test datasets, please also cite:
+
+> Zirem Y. et al., *IonScell Test Datasets*, Zenodo, 2025.  
+> DOI: [10.5281/zenodo.20070096](https://doi.org/10.5281/zenodo.20070096)
 
 ---
 
@@ -338,5 +392,5 @@ MIT License — see `LICENSE` for details.
 
 ## Contact
 
-Issues and feature requests: [GitHub Issues](https://github.com/your-org/ionscell/issues)/
-yanis.zirem@univ-lille.fr/ yanis.zirem2016@univ-lille.fr
+Issues and feature requests: [GitHub Issues](https://github.com/yanisZirem/ionScell/issues)  
+✉️ yanis.zirem@univ-lille.fr — yanis.zirem2016@univ-lille.fr
