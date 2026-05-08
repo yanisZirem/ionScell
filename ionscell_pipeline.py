@@ -2177,19 +2177,20 @@ class SCMSIPipeline:
         Parameters
         ----------
         top_n : int            — Top differential ions to return.
-        pval_threshold : float — p-value threshold (raw or adjusted, see fdr_correction).
+        pval_threshold : float — p-value threshold (raw or adjusted depending on
+                                 fdr_correction).
         fc_threshold : float   — Minimum fold-change.
         method : str           — 'kruskal' (non-parametric) or 'anova'.
-        fdr_correction : bool  — If True (default), apply Benjamini-Hochberg FDR correction
-                                 and filter on adjusted p-value.
-                                 If False, use raw p-values (no multiple-testing correction).
+        fdr_correction : bool  — If True (default), apply Benjamini-Hochberg FDR
+                                 correction and threshold on adjusted p-values.
+                                 If False, use raw p-values (no correction).
         show_volcano : bool    — Show volcano plot.
         show_heatmap : bool    — Show Z-score heatmap.
 
         Returns
         -------
         top_markers : pd.DataFrame
-        result_df   : pd.DataFrame (full results, always contains both pval and pval_adj)
+        result_df   : pd.DataFrame — always contains both 'pval' and 'pval_adj'
         """
         from scipy import stats as scipy_stats
 
@@ -2228,7 +2229,7 @@ class SCMSIPipeline:
         stat_arr = np.array(stat_vals)
         p_arr    = np.array(p_vals)
 
-        # ── BH FDR correction (optional) ────────────────────────────────────
+        # ── BH FDR correction (optional) ─────────────────────────────────────
         if fdr_correction:
             n_tests = len(p_arr)
             order   = np.argsort(p_arr)
@@ -2236,15 +2237,15 @@ class SCMSIPipeline:
             p_adj   = np.minimum(1.0, p_arr * n_tests / rank)
             for i in range(n_tests - 2, -1, -1):
                 p_adj[order[i]] = min(p_adj[order[i]], p_adj[order[i + 1]])
-            p_used      = p_adj          # threshold applied on adjusted p
-            p_used_col  = 'pval_adj'
-            pval_label  = 'adj. p-value (BH FDR)'
+            p_used       = p_adj
+            p_used_col   = 'pval_adj'
+            pval_label   = 'adj. p-value (BH FDR)'
             thresh_label = f"FDR={pval_threshold}"
         else:
-            p_adj       = p_arr.copy()   # pval_adj column = raw p (no correction)
-            p_used      = p_arr
-            p_used_col  = 'pval'
-            pval_label  = 'raw p-value'
+            p_adj        = p_arr.copy()   # pval_adj = raw p (no correction applied)
+            p_used       = p_arr
+            p_used_col   = 'pval'
+            pval_label   = 'raw p-value'
             thresh_label = f"p={pval_threshold}"
 
         global_means = np.mean(X, axis=0) + 1e-12
