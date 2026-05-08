@@ -1,6 +1,6 @@
 # IonScell — Jupyter Notebook & Google Colab User Manual
 
-<p align="center"><em>Version 6c · Single-Cell Mass Spectrometry Imaging</em></p>
+<p align="center"><em>Version 1.0 · Single-Cell Mass Spectrometry Imaging</em></p>
 
 ---
 
