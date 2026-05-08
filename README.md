@@ -10,12 +10,14 @@
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square"/>
   <img src="https://img.shields.io/badge/Format-imzML-orange?style=flat-square"/>
   <img src="https://img.shields.io/badge/Clustering-GMM%20%7C%20FCM-purple?style=flat-square"/>
-  <img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20070096-blue?style=flat-square"/>
+  <a href="https://doi.org/10.5281/zenodo.20070096">
+    <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.20070096.svg" alt="DOI"/>
+  </a>
 </p>
 
 <p align="center">
   <a href="https://colab.research.google.com/github/yanisZirem/ionScell/blob/main/ionScell_notebook.ipynb">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" height="28"/>
   </a>
 </p>
 
@@ -25,55 +27,36 @@
 
 **IonScell** is a Python pipeline for **Single-Cell Mass Spectrometry Imaging (SCMSI)**. It processes raw imzML files acquired on MALDI, DESI, or other MSI platforms and performs the full analytical workflow — from data loading and cell segmentation, through soft clustering and quality control, to lipid/metabolite annotation and export.
 
-IonScell is available in three complementary formats:
+IonScell is available in two complementary formats in this repository:
 
 | Format | Best for |
 |--------|----------|
 | **Jupyter Notebook** (`ionScell_notebook.ipynb`) | Step-by-step exploratory analysis, publication figures |
 | **Python class** (`ionscell_pipeline.py`) | Integration into existing pipelines, scripting |
-| **Desktop GUI** (`ionScell.exe`) | Non-programmers, rapid interactive analysis |
 
-> 💡 **New to IonScell? Start with the [mixed cell dataset](#️-test-datasets-zenodo) — it is the smallest file and ideal for a first run.**
+The **IonScell Desktop GUI** is distributed separately — download it here:  
+📥 [https://nextcloud.univ-lille.fr/index.php/f/384061741](https://nextcloud.univ-lille.fr/index.php/f/384061741)
 
 ---
 
-## 🗂️ Test Datasets (Zenodo)
+## 🗂️ Test Datasets
 
-All test datasets used to develop and validate IonScell are publicly available on Zenodo:
+All datasets used to develop and validate IonScell are publicly available on Zenodo:
 
-> **IonScell Test Datasets**  
-> 📦 DOI: [10.5281/zenodo.20070096](https://doi.org/10.5281/zenodo.20070096)
+> **Single-cell MALDI-MSI datasets of breast cancer and glioblastoma cell lines for ionScell validation**  
+> Zirem Y., Ledoux L., Defrance J., Lagache L., Fournier I., Salzet M. — PRISM U1192  
+> [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20070096.svg)](https://doi.org/10.5281/zenodo.20070096)
 
-The repository contains the following datasets:
+The repository contains MALDI-MSI acquisitions (Bruker rapifleX, 10 µm, m/z 350–1100, centroid imzML/ibd) of cytospin-deposited human cell lines in both positive and negative ionisation modes:
 
-| Dataset | Description | Recommended for | DOI |
-|---------|-------------|-----------------|-----|
-| **Mixed cells** ⭐ | Two cell lines mixed in vitro, small ROI | **First-time users — start here** | [10.5281/zenodo.20070096](https://doi.org/10.5281/zenodo.20070096) |
-| **Cancer cell lines** | Single cancer cell line, full dish scan | Segmentation parameter tuning | [10.5281/zenodo.20070096](https://doi.org/10.5281/zenodo.20070096) |
-| **Tissue section** | Mouse liver section, high cell density | Dense tissue / DFS segmentation | [10.5281/zenodo.20070096](https://doi.org/10.5281/zenodo.20070096) |
+- **AU565** — HER2-positive breast cancer
+- **MDA-MB-231** — triple-negative breast cancer
+- **MCF7** — luminal breast cancer
+- **NCH82** — glioblastoma
+- **AU565 + NCH82** ⭐ — binary mixed population (pos + neg)
+- **AU565 + NCH82 + MDA-MB-231** — ternary mixed population (pos + neg)
 
-> ⭐ **We strongly recommend starting with the mixed cell dataset.** It covers a small spatial region (~50 × 50 pixels), runs through the entire pipeline in under 5 minutes on a standard laptop, and demonstrates IonScell's ability to resolve two distinct cell populations via soft clustering.
-
-### Downloading test data
-
-```bash
-# Using the Zenodo DOI — download with wget or curl
-wget "https://doi.org/10.5281/zenodo.20070096" -O ionscell_testdata.zip
-
-# Or in Python
-import urllib.request
-urllib.request.urlretrieve(
-    "https://zenodo.org/record/20070096/files/mixed_cells.imzML",
-    "data/mixed_cells.imzML"
-)
-```
-
-### Data reuse
-
-These datasets are released under **Creative Commons CC BY 4.0** and are freely available for reuse in other tools, benchmarks, or publications. If you use them, please cite:
-
-> Zirem Y. et al., *IonScell Test Datasets*, Zenodo, 2025.  
-> DOI: [10.5281/zenodo.20070096](https://doi.org/10.5281/zenodo.20070096)
+> 💡 **Start with `au565_nch82_neg` or `au565_nch82_pos`** — the binary mixed cell datasets are the smallest files (~57 MB and ~180 MB combined) and are ideal for a first run. They demonstrate IonScell's ability to resolve two molecularly distinct cell populations via soft clustering.
 
 ---
 
@@ -94,11 +77,11 @@ These datasets are released under **Creative Commons CC BY 4.0** and are freely 
 
 ## Installation
 
-### 1. Clone or download the repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/yanisZirem/ionScell.git
-cd ionscell
+cd ionScell
 ```
 
 ### 2. Create a dedicated environment (recommended)
@@ -129,11 +112,9 @@ pip install scikit-fuzzy
 jupyter notebook ionScell_notebook.ipynb
 ```
 
-Follow the numbered cells (Steps 0–12) to process your dataset interactively.
+### Option B — Google Colab *(no installation required)*
 
-### Option B — Google Colab (no installation)
-
-Click the badge below to open the notebook directly in Google Colab — no local installation required:
+Click the badge to open the notebook directly in Colab:
 
 <p align="center">
   <a href="https://colab.research.google.com/github/yanisZirem/ionScell/blob/main/ionScell_notebook.ipynb">
@@ -141,65 +122,42 @@ Click the badge below to open the notebook directly in Google Colab — no local
   </a>
 </p>
 
-The notebook's **Step 0** cell auto-detects Colab and installs all dependencies automatically. You will then be prompted to upload your `.imzML` and `.ibd` files (or mount your Google Drive).
-
-> 💡 **Tip for Colab:** Use the [mixed cell dataset](https://doi.org/10.5281/zenodo.20070096) for your first run — it is small enough to process on the free tier without needing a High-RAM runtime.
+**Step 0** of the notebook auto-detects Colab, installs all dependencies, and lets you upload your data or download the test dataset directly from Zenodo.
 
 ### Option C — Python script
 
 ```python
 from ionscell_pipeline import SCMSIPipeline, LipidAnnotator
 
-# 1. Load data
 pipe = SCMSIPipeline()
-pipe.load_imzml("data/mixed_cells.imzML")
+pipe.load_imzml("data/au565_nch82_neg.imzML")
 pipe.build_datacube(mz_min=350, mz_max=1100, mz_bin=0.1, normalization="TIC")
 
-# 2. Visualise TIC
-pipe.show_TIC_plotly()
-
-# 3. Adaptive thresholding + segmentation
 thresh, _ = pipe.auto_TIC_threshold(method='auto')
 pipe.watershed_or_dfs_from_mask(TIC_threshold=thresh, method='watershed',
                                  min_cell_size=4, pixel_size_um=10)
 
-# 4. Extract spectra + QC
 pipe.extract_cell_spectra(agg='mean')
 pipe.compute_spectral_quality_metrics()
 pipe.filter_low_quality_cells(snr_threshold=2.0)
 
-# 5. Soft clustering
 pipe.compute_soft_clustering(n_clusters=None, max_clusters=8)
 pipe.assess_clone_quality()
 
-# 6. Visualise
 pipe.show_umap_with_quality_overlay()
 pipe.overlay_clusters_on_image_plotly()
 pipe.plot_clone_spectra_with_uncertainty()
 
-# 7. Differential analysis
 top_markers, _ = pipe.run_differential_analysis(method='kruskal')
-
-# 8. Annotation
 ann_df, enrichment = pipe.annotate_ions(mode='neg', ppm_tolerance=10.0)
 
-# 9. Export
 pipe.export_cells_to_csv("results/cells.csv")
 ```
 
-### Option D — IonScell Desktop GUI (no Python required)
+### Option D — Desktop GUI *(no Python required)*
 
-The standalone Windows application provides a full graphical interface to the same pipeline.
-
-📥 **Download the latest version:**  
-[https://nextcloud.univ-lille.fr/index.php/f/384061741](https://nextcloud.univ-lille.fr/index.php/f/384061741)
-
-After downloading:
-1. Extract the archive
-2. Launch `ionScell.exe`
-3. Follow the **Interface User Manual** in `docs/user_manual_interface.md`
-
-> ⚠️ The executable is **not hosted on GitHub** due to file size constraints.
+📥 [Download IonScell GUI](https://nextcloud.univ-lille.fr/index.php/f/384061741) — extract and launch `ionScell.exe`.  
+See `docs/user_manual_interface.md` for the full guide.
 
 ---
 
@@ -333,23 +291,23 @@ export_cells_to_imzML()
 
 ```python
 ann = LipidAnnotator(mode='pos', ppm_tolerance=5.0)
-hits = ann.annotate_peak(800.56)          # single m/z
-df   = ann.annotate_peak_list(mz_array)   # array of m/z
+hits = ann.annotate_peak(800.56)
+df   = ann.annotate_peak_list(mz_array)
 results, enrichment = ann.annotate_clones(pipeline)
-df   = ann.search("ceramide")             # free-text search
+df   = ann.search("ceramide")
 ```
 
-**Supported adducts** (positive): `[M+H]+`, `[M+Na]+`, `[M+K]+`, `[M+NH4]+`, `[M+Li]+`, `[M+H-H2O]+`, `[M+2H]2+`  
-**Supported adducts** (negative): `[M-H]-`, `[M+Cl]-`, `[M+FA-H]-`, `[M+Ac-H]-`, `[M-H-H2O]-`, `[M+Br]-`, `[M-2H]2-`
+**Positive adducts:** `[M+H]+`, `[M+Na]+`, `[M+K]+`, `[M+NH4]+`, `[M+Li]+`, `[M+H-H2O]+`, `[M+2H]2+`  
+**Negative adducts:** `[M-H]-`, `[M+Cl]-`, `[M+FA-H]-`, `[M+Ac-H]-`, `[M-H-H2O]-`, `[M+Br]-`, `[M-2H]2-`
 
 ---
 
 ## Repository Structure
 
 ```
-ionscell/
+ionScell/
 ├── ionscell_pipeline.py          ← SCMSIPipeline + LipidAnnotator class
-├── ionScell_notebook.ipynb       ← Clean Jupyter notebook (imports class)
+├── ionScell_notebook.ipynb       ← Jupyter notebook (imports class)
 ├── requirements.txt
 ├── README.md
 ├── logo.png
@@ -362,25 +320,24 @@ ionscell/
 
 ## Supported Instruments & Formats
 
-| Instrument type | Format | Notes |
-|----------------|--------|-------|
-| MALDI-TOF/TOF   | imzML  | Continuous or processed mode |
-| MALDI-Orbitrap  | imzML  | Use adaptive binning for best annotation accuracy |
-| DESI-MS         | imzML  | |
-| SIMS            | imzML  | |
+| Instrument | Format | Notes |
+|-----------|--------|-------|
+| MALDI-TOF/TOF | imzML | Continuous or processed mode |
+| MALDI-Orbitrap | imzML | Use adaptive binning for best annotation |
+| DESI-MS | imzML | |
+| SIMS | imzML | |
 
 ---
 
 ## Citation
 
-If you use IonScell in your research, please cite:
+IonScell is currently under reviewer revision.
 
-> IonScell is currently under reviewer revision.
+If you use the test datasets, please cite:
 
-If you use the test datasets, please also cite:
-
-> Zirem Y. et al., *IonScell Test Datasets*, Zenodo, 2025.  
-> DOI: [10.5281/zenodo.20070096](https://doi.org/10.5281/zenodo.20070096)
+> Zirem Y., Ledoux L., Defrance J., Lagache L., Fournier I., Salzet M.  
+> *Single-cell MALDI-MSI datasets of breast cancer and glioblastoma cell lines for ionScell validation*, Zenodo, 2026.  
+> [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20070096.svg)](https://doi.org/10.5281/zenodo.20070096)
 
 ---
 
@@ -392,5 +349,5 @@ MIT License — see `LICENSE` for details.
 
 ## Contact
 
-Issues and feature requests: [GitHub Issues](https://github.com/yanisZirem/ionScell/issues)  
-✉️ yanis.zirem@univ-lille.fr — yanis.zirem2016@univ-lille.fr
+📬 yanis.zirem@univ-lille.fr — yanis.zirem2016@univ-lille.fr  
+🐛 Issues & feature requests: [github.com/yanisZirem/ionScell/issues](https://github.com/yanisZirem/ionScell/issues)
