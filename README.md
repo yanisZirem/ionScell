@@ -23,7 +23,7 @@
 
 ## Overview
 
-**IonScell** is a Python pipeline for **Single-Cell Mass Spectrometry Imaging (SCMSI)**. It processes raw imzML files acquired on MALDI, DESI, or other MSI platforms and performs the full analytical workflow — from data loading and cell segmentation, through soft clustering and quality control, to lipid/metabolite annotation and export.
+**IonScell** is a Python pipeline for **Single-Cell Mass Spectrometry Imaging (SCMSI)**. It processes raw imzML files acquired on MALDI, DESI, SpiderMass-imaging or other MSI platforms and performs the full analytical workflow, from data loading, single cells isolation, cells populations analysis through soft clustering and quality control, to lipid/metabolite annotation and export.
 
 IonScell is available in two complementary formats in this repository:
 
@@ -54,7 +54,7 @@ The repository contains MALDI-MSI acquisitions (Bruker rapifleX, 10 µm, m/z 350
 - **AU565 + NCH82** ⭐ — binary mixed population (pos + neg)
 - **AU565 + NCH82 + MDA-MB-231** — ternary mixed population (pos + neg)
 
-> 💡 **Start with `au565_nch82_neg` or `au565_nch82_pos`** — the binary mixed cell datasets are the smallest files (~57 MB and ~180 MB combined) and are ideal for a first run. They demonstrate IonScell's ability to resolve two molecularly distinct cell populations via soft clustering.
+> 💡 **Start with `au565_nch82_neg` or `au565_nch82_pos`** — the binary mixed cell datasets are the smallest files (~57 MB and ~180 MB combined) and are ideal for a first run. They demonstrate IonScell's ability to resolve molecularly distinct cell populations via soft clustering.
 
 ---
 
