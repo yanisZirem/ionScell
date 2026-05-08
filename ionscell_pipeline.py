@@ -2168,6 +2168,7 @@ class SCMSIPipeline:
 
     def run_differential_analysis(self, top_n=30, pval_threshold=0.05,
                                    fc_threshold=1.5, method='kruskal',
+                                   fdr_correction=True,
                                    show_volcano=True, show_heatmap=True,
                                    figsize=(1000, 700)):
         """
@@ -2176,16 +2177,19 @@ class SCMSIPipeline:
         Parameters
         ----------
         top_n : int            — Top differential ions to return.
-        pval_threshold : float — Adjusted p-value threshold (BH FDR).
+        pval_threshold : float — p-value threshold (raw or adjusted, see fdr_correction).
         fc_threshold : float   — Minimum fold-change.
         method : str           — 'kruskal' (non-parametric) or 'anova'.
+        fdr_correction : bool  — If True (default), apply Benjamini-Hochberg FDR correction
+                                 and filter on adjusted p-value.
+                                 If False, use raw p-values (no multiple-testing correction).
         show_volcano : bool    — Show volcano plot.
         show_heatmap : bool    — Show Z-score heatmap.
 
         Returns
         -------
         top_markers : pd.DataFrame
-        result_df   : pd.DataFrame (full results)
+        result_df   : pd.DataFrame (full results, always contains both pval and pval_adj)
         """
         from scipy import stats as scipy_stats
 
@@ -2223,12 +2227,25 @@ class SCMSIPipeline:
 
         stat_arr = np.array(stat_vals)
         p_arr    = np.array(p_vals)
-        n_tests  = len(p_arr)
-        order    = np.argsort(p_arr)
-        rank     = np.empty_like(order); rank[order] = np.arange(1, n_tests + 1)
-        p_adj    = np.minimum(1.0, p_arr * n_tests / rank)
-        for i in range(n_tests - 2, -1, -1):
-            p_adj[order[i]] = min(p_adj[order[i]], p_adj[order[i + 1]])
+
+        # ── BH FDR correction (optional) ────────────────────────────────────
+        if fdr_correction:
+            n_tests = len(p_arr)
+            order   = np.argsort(p_arr)
+            rank    = np.empty_like(order); rank[order] = np.arange(1, n_tests + 1)
+            p_adj   = np.minimum(1.0, p_arr * n_tests / rank)
+            for i in range(n_tests - 2, -1, -1):
+                p_adj[order[i]] = min(p_adj[order[i]], p_adj[order[i + 1]])
+            p_used      = p_adj          # threshold applied on adjusted p
+            p_used_col  = 'pval_adj'
+            pval_label  = 'adj. p-value (BH FDR)'
+            thresh_label = f"FDR={pval_threshold}"
+        else:
+            p_adj       = p_arr.copy()   # pval_adj column = raw p (no correction)
+            p_used      = p_arr
+            p_used_col  = 'pval'
+            pval_label  = 'raw p-value'
+            thresh_label = f"p={pval_threshold}"
 
         global_means = np.mean(X, axis=0) + 1e-12
         clone_means  = np.vstack([np.mean(groups[i], axis=0) for i in range(len(clones))])
@@ -2236,31 +2253,34 @@ class SCMSIPipeline:
         best_clone   = np.array([clones[i] for i in clone_means.argmax(axis=0)])
 
         result_df = pd.DataFrame({
-            'mz':        [float(c) for c in mz_cols],
-            'stat':      stat_arr,
-            'pval':      p_arr,
-            'pval_adj':  p_adj,
+            'mz':          [float(c) for c in mz_cols],
+            'stat':        stat_arr,
+            'pval':        p_arr,
+            'pval_adj':    p_adj,
             'fold_change': fc,
             'best_clone':  best_clone,
-            'neg_log10_p': -np.log10(np.clip(p_adj, 1e-300, 1.0))
+            'neg_log10_p': -np.log10(np.clip(p_used, 1e-300, 1.0))
         })
 
-        sig = result_df[(result_df['pval_adj'] < pval_threshold) &
+        sig = result_df[(p_used < pval_threshold) &
                         (result_df['fold_change'] >= fc_threshold if fc_threshold > 0 else True)]
         sig = sig.sort_values('neg_log10_p', ascending=False)
         top_markers = sig.head(top_n).reset_index(drop=True)
 
         if self.verbose:
-            print(f"[DA] {len(sig)} significant ions  (FDR<{pval_threshold}, FC≥{fc_threshold})")
+            corr_tag = "BH FDR" if fdr_correction else "raw p"
+            print(f"[DA] {len(sig)} significant ions  "
+                  f"({corr_tag}<{pval_threshold}, FC≥{fc_threshold})")
             for _, row in top_markers.head(5).iterrows():
-                print(f"     m/z={row['mz']:.4f}  adj-p={row['pval_adj']:.2e}  "
+                print(f"     m/z={row['mz']:.4f}  "
+                      f"{'adj-p' if fdr_correction else 'p'}={row[p_used_col]:.2e}  "
                       f"FC={row['fold_change']:.2f}  best→Clone {int(row['best_clone'])}")
 
         palette = pc.qualitative.Plotly
         clone_colors = {int(cl): palette[i % len(palette)] for i, cl in enumerate(clones)}
 
         if show_volcano:
-            is_sig = (result_df['pval_adj'] < pval_threshold) & \
+            is_sig = (p_used < pval_threshold) & \
                      (result_df['fold_change'] >= fc_threshold)
             fig_v = go.Figure()
             mask_ns = ~is_sig
@@ -2283,15 +2303,16 @@ class SCMSIPipeline:
                     marker=dict(size=7, color=clone_colors[cl],
                                 line=dict(width=0.5, color='white')),
                     name=f'Clone {cl}',
-                    text=[f"m/z={m:.4f}<br>FC={fc_:.2f}<br>adj-p={p:.2e}"
+                    text=[f"m/z={m:.4f}<br>FC={fc_:.2f}<br>"
+                          f"{'adj-p' if fdr_correction else 'p'}={p:.2e}"
                           for m, fc_, p in zip(result_df.loc[mask_cl, 'mz'],
                                               result_df.loc[mask_cl, 'fold_change'],
-                                              result_df.loc[mask_cl, 'pval_adj'])],
+                                              result_df.loc[mask_cl, p_used_col])],
                     hoverinfo='text'
                 ))
             fig_v.add_hline(y=-np.log10(pval_threshold),
                             line=dict(color='#f38ba8', dash='dash', width=1),
-                            annotation_text=f"FDR={pval_threshold}")
+                            annotation_text=thresh_label)
             fig_v.add_vline(x=np.log2(fc_threshold + 1e-6),
                             line=dict(color='#fab387', dash='dash', width=1),
                             annotation_text=f"FC={fc_threshold}")
@@ -2303,8 +2324,9 @@ class SCMSIPipeline:
                     font=dict(size=9, color='white'), xanchor='left'
                 )
             fig_v.update_layout(
-                title=f"Volcano — {method.upper()} differential analysis across MSps",
-                xaxis_title="log₂(Fold Change)", yaxis_title="-log₁₀(adj. p-value)",
+                title=f"Volcano — {method.upper()}  |  {pval_label}  threshold={pval_threshold}",
+                xaxis_title="log₂(Fold Change)",
+                yaxis_title=f"-log₁₀({pval_label})",
                 template="plotly_dark", width=figsize[0], height=figsize[1],
                 legend_title="Best MSp"
             )
@@ -2313,11 +2335,11 @@ class SCMSIPipeline:
         if show_heatmap and len(top_markers) >= 2:
             top_mz_cols = [f"{float(m):.4f}" for m in top_markers['mz']]
             df_sorted = df.sort_values('Class')
-            clone_labels = df_sorted['Class'].astype(int).values
             Z = df_sorted[top_mz_cols].values.astype(float)
             means = Z.mean(axis=0); stds = Z.std(axis=0) + 1e-12
             Z_norm = np.clip((Z - means) / stds, -3, 3)
 
+            corr_str = "BH FDR" if fdr_correction else "raw p"
             fig_h = go.Figure(go.Heatmap(
                 z=Z_norm.T,
                 x=list(range(len(df_sorted))),
@@ -2327,7 +2349,8 @@ class SCMSIPipeline:
                 hovertemplate="Cell %{x}<br>m/z=%{y}<br>Z=%{z:.2f}<extra></extra>"
             ))
             fig_h.update_layout(
-                title=f"Top-{len(top_markers)} marker ions — Z-score heatmap (sorted by MSp)",
+                title=(f"Top-{len(top_markers)} marker ions — Z-score heatmap "
+                       f"(sorted by MSp  |  {method.upper()}, {corr_str}<{pval_threshold}, FC≥{fc_threshold})"),
                 xaxis_title="Cells (sorted by MSp)", yaxis_title="m/z",
                 template="plotly_dark",
                 width=figsize[0], height=max(400, 20 * len(top_markers) + 150),
