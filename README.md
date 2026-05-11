@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">IonScell</h1>
-<p align="center"><em>Single-Cell Mass Spectrometry Imaging — End-to-End Analysis Pipeline</em></p>
+<p align="center"><em>Single-Cell Mass Spectrometry Imaging</em></p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square"/>
