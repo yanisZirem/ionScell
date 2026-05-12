@@ -33,7 +33,7 @@ IonScell is available in two complementary formats in this repository:
 | **Python class** (`ionscell_pipeline.py`) | Integration into existing pipelines, scripting |
 
 The **IonScell Desktop GUI** is distributed separately — download it here:  
-📥 [https://nextcloud.univ-lille.fr/index.php/f/384061741](https://nextcloud.univ-lille.fr/index.php/f/384061741)
+📥 [https://nextcloud.univ-lille.fr/index.php/s/7xYDzCFRsmwN9XY]
 
 ---
 
