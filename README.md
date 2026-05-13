@@ -2,7 +2,6 @@
   <img src="logo.png" width="180" alt="IonScell logo"/>
 </p>
 
-<h1 align="center">IonScell</h1>
 <p align="center"><em>Single-Cell Mass Spectrometry Imaging</em></p>
 
 <p align="center">
