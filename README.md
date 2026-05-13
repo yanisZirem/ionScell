@@ -154,7 +154,7 @@ pipe.export_cells_to_csv("results/cells.csv")
 
 ### Option D — Desktop GUI *(no Python required)*
 
-📥 [Download IonScell GUI](https://nextcloud.univ-lille.fr/index.php/f/384061741) — extract and launch `ionScell.exe`.  
+📥 [Download IonScell GUI](https://nextcloud.univ-lille.fr/index.php/s/7xYDzCFRsmwN9XY) — extract and launch `ionScell.exe`.  
 See `docs/user_manual_interface.md` for the full guide.
 
 ---
