@@ -32,7 +32,7 @@ IonScell is available in two complementary formats in this repository:
 | **Python class** (`ionscell_pipeline.py`) | Integration into existing pipelines, scripting |
 
 The **IonScell Desktop GUI** is distributed separately — download it here:  
-📥 [https://nextcloud.univ-lille.fr/index.php/s/7xYDzCFRsmwN9XY]
+📥 [https://nextcloud.univ-lille.fr/index.php/s/wefM34McLdbjsnX]
 
 ---
 
@@ -153,7 +153,7 @@ pipe.export_cells_to_csv("results/cells.csv")
 
 ### Option D — Desktop GUI *(no Python required)*
 
-📥 [Download IonScell GUI](https://nextcloud.univ-lille.fr/index.php/s/7xYDzCFRsmwN9XY) — extract and launch `ionScell.exe`.  
+📥 [Download IonScell GUI](https://nextcloud.univ-lille.fr/index.php/s/wefM34McLdbjsnX) — extract and launch `ionScell.exe`.  
 See `docs/user_manual_interface.md` for the full guide.
 
 ---
