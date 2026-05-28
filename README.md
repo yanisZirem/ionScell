@@ -328,7 +328,7 @@ ionScell/
 
 ## Citation
 
-IonScell is currently under reviewer revision.
+IonScell is currently under submission to a journal.
 
 If you use the test datasets, please cite:
 
