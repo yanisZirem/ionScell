@@ -36,7 +36,7 @@ The **IonScell Desktop GUI** is distributed separately — download it here:
 
 ---
 
-## 🗂️ Test Datasets
+## Test Datasets
 
 All datasets used to develop and validate IonScell are publicly available on Zenodo:
 
