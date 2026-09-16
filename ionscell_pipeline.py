@@ -333,9 +333,11 @@ class SCMSIPipeline:
         it = tqdm(range(n_spectra), desc="Build datacube") if use_tqdm \
              else range(n_spectra)
 
+        n_skipped_malformed = 0
         for idx in it:
             mzs, intens = self.parser.getspectrum(idx)
-            if len(mzs) == 0:
+            if len(mzs) == 0 or len(intens) == 0 or len(mzs) != len(intens):
+                n_skipped_malformed += 1
                 continue
 
             intens = np.array(intens, dtype=np.float32, copy=True)
@@ -367,6 +369,9 @@ class SCMSIPipeline:
         self.data_cube = data_cube
 
         if self.verbose:
+            if n_skipped_malformed > 0:
+                print(f"[CUBE] ⚠️  Skipped {n_skipped_malformed}/{n_spectra} "
+                      "malformed spectra (empty or mismatched m/z-intensity arrays)")
             print(f"[CUBE] Done. TIC range: "
                   f"{self.TIC.min():.2e}–{self.TIC.max():.2e}")
         return self.data_cube
